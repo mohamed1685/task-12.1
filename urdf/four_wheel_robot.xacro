@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="four_wheel_robot">
+
+  <!-- Include component macros -->
+  <xacro:include filename="$(find four_wheel_robot)/urdf/base.xacro"/>
+  <xacro:include filename="$(find four_wheel_robot)/urdf/wheel.xacro"/>
+  <xacro:include filename="$(find four_wheel_robot)/urdf/lidar.xacro"/>
+
+  <!-- Instantiate base -->
+  <xacro:base_link/>
+
+  <!-- Instantiate wheels -->
+  <xacro:wheel name="front_left"  x="0.3" y="0.25" z="0.0"/>
+  <xacro:wheel name="front_right" x="0.3" y="-0.25" z="0.0"/>
+  <xacro:wheel name="rear_left"   x="-0.3" y="0.25" z="0.0"/>
+  <xacro:wheel name="rear_right"  x="-0.3" y="-0.25" z="0.0"/>
+
+  <!-- Instantiate lidar -->
+  <xacro:lidar x="0.0" y="0.0" z="0.25"/>
+
+</robot>

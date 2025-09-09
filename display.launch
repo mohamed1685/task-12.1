@@ -1,0 +1,27 @@
+<launch>
+  <!-- Robot model -->
+  <arg name="model" default="$(find four_wheel_robot)/urdf/four_wheel_robot.xacro"/>
+
+  <!-- Load robot_description -->
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+
+  <!-- Joint and state publishers -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" output="screen"/>
+
+  <!-- Launch Gazebo with empty world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- Spawn robot into Gazebo -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-param robot_description -urdf -model four_wheel_robot"/>
+
+  <!-- Launch RViz with config -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find four_wheel_robot)/rviz/robot_display.rviz"/>
+</launch>
